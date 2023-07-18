@@ -19,9 +19,10 @@ async function fetchAppropriateApi(action: { type: string, payload: any }, liste
     listenerApi.dispatch(setQueryState({ isFetching: true, data: [] }));
     const actionName: string = action.type.split('/')[1];
     let data: Array<IMovie> = [];
+    let apiName: string | null = null;
+    console.log(actionName);
     switch (actionName) {
       case 'setFilterKey':
-        let apiName: string | null = null;
         if (action.payload === MOVIE_TYPES.NOW_PLAYING) {
           apiName = 'nowPlaying';
         } else if (action.payload === MOVIE_TYPES.POPULAR) {
@@ -29,16 +30,17 @@ async function fetchAppropriateApi(action: { type: string, payload: any }, liste
         } else if (action.payload === MOVIE_TYPES.TOP_RATED) {
           apiName = 'topRated';
         }
-        if(apiName) {
-          const { results } = await listenerApi.dispatch(movieApi.endpoints?.[apiName]?.initiate?.()).unwrap();
-          data = results;
-        }
+
         break;
-      case 'setSearchQuery':
-        // listenerApi.dispatch(movieApi.endpoints?.topRated?.initiate?.());
+      case 'setSearchValue':
+        apiName = 'search';
         break;
       default:
         break;
+    }
+    if(apiName) {
+      const { results } = await listenerApi.dispatch(movieApi.endpoints?.[apiName]?.initiate?.()).unwrap();
+      data = results;
     }
     listenerApi.dispatch(setQueryState({ isFetching: false, data }));
   } catch (err) {
