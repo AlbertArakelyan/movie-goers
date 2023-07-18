@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import {IMovieViewProps} from '@/components/Pages/Movie/types';
 
-const baseUrl = 'https://api.themoviedb.org/3/movie/';
+const baseUrl = 'https://api.themoviedb.org/3/';
 const movieApiHeaders = {
   accept: 'application/json',
 };
@@ -13,16 +13,19 @@ export const movieApi= createApi({
   baseQuery: fetchBaseQuery({baseUrl}),
   endpoints: (builder) => ({
     nowPlaying: builder.query({
-      query: () => createRequest('now_playing'),
+      query: () => createRequest('movie/now_playing'),
     }),
     topRated: builder.query({
-      query: () => createRequest('top_rated'),
+      query: () => createRequest('movie/top_rated'),
     }),
     popular: builder.query({
-      query: () => createRequest('popular'),
+      query: () => createRequest('movie/popular'),
+    }),
+    search: builder.query({
+      query: (query) => createRequest(`search/movie?query=${query}`),
     }),
     getMovie: builder.query({
-      query: (id) => createRequest(id),
+      query: (id) => createRequest(`movie/${id}`),
     }),
   }),
 });
