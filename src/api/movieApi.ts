@@ -8,7 +8,7 @@ const movieApiHeaders = {
 const createRequest = (url: string) => ({url, headers: movieApiHeaders});
 
 export const movieApi= createApi({
-  reducerPath: 'movie',
+  reducerPath: 'movieApi',
   baseQuery: fetchBaseQuery({baseUrl}),
   endpoints: (builder) => ({
     nowPlaying: builder.query({

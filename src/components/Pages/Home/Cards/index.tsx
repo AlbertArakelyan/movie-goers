@@ -1,6 +1,8 @@
 import React from 'react';
 import {ContainerPropTypes} from './types';
 import View from './view';
+import {useRTKSelector} from "@/store/hooks";
+import {selectMovieQueryState} from "@/store/slices/movie";
 
 const CARDS = [
   {
@@ -86,7 +88,8 @@ const CARDS = [
   },
 ]
 const CardsContainer: React.FC<ContainerPropTypes> = () => {
-
+  const a = useRTKSelector(selectMovieQueryState);
+  console.log(a);
   return <View list={CARDS} />
 }
 export default React.memo(CardsContainer);

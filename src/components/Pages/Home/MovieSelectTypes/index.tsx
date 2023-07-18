@@ -1,15 +1,17 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {ContainerPropTypes} from './types';
 import View from './view';
-import {MOVIE_TYPES} from "@/common/enums";
+import {selectMovieFilters, setFilterKey} from "@/store/slices/movie";
+import {useRTKDispatch, useRTKSelector} from "@/store/hooks";
 
 const MovieSelectTypesContainer: React.FC<ContainerPropTypes> = () => {
-  const [movieType, setMovieType] = useState<MOVIE_TYPES>(MOVIE_TYPES.ALL);
+  const dispatch = useRTKDispatch();
+  const { filterKey } = useRTKSelector(selectMovieFilters);
 
   const onChange = (e) => {
-    setMovieType(e.target.value);
+    dispatch(setFilterKey(e.target.value));
   }
 
-  return <View selectedValue={movieType} onChange={onChange} />
+  return <View selectedValue={filterKey} onChange={onChange} />
 }
 export default React.memo(MovieSelectTypesContainer);

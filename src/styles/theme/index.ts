@@ -20,7 +20,9 @@ const customTheme = {
   colors,
   shadows,
   breakpoints,
-  components,
+  components: {
+    ...components
+  },
 }
 
 export default extendTheme(customTheme);

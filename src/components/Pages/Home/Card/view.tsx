@@ -1,6 +1,8 @@
 import React from 'react';
-import {Box, Icon, HStack, Card, CardBody, Image, Stack, Heading, Text, Divider, CardFooter, Button, ButtonGroup} from '@chakra-ui/react';
-import { MdCalendarToday, MdRemoveRedEye } from 'react-icons/md';
+import {Box, Icon, HStack, Card, CardBody, Heading, Text} from '@chakra-ui/react';
+import Link from 'next/link';
+import Image from 'next/image';
+import {MdCalendarToday, MdRemoveRedEye} from 'react-icons/md';
 import {ViewPropTypes} from './types';
 
 const CardView: React.FC<ViewPropTypes> = ({data}) => (<Card maxW="sm">
@@ -9,18 +11,34 @@ const CardView: React.FC<ViewPropTypes> = ({data}) => (<Card maxW="sm">
     borderTopLeftRadius="lg"
     borderTopRightRadius="lg"
     p={0}>
-    <Box position="relative">
-      <Image
-        src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-        alt="Green double couch with wooden legs"
-        borderTopLeftRadius="lg"
-        borderTopRightRadius="lg"
-      />
-      <Heading
-        fontSize="sm"
-        variant="cardTitle"
-      >{data.title}</Heading>
-    </Box>
+    <Link href={`movie/${data.id}`}>
+      <Box position="relative" overflow="hidden" data-group>
+        <Box
+          width="100%"
+          borderTopLeftRadius="lg"
+          borderTopRightRadius="lg"
+          height="200"
+          position="relative"
+          overflow="hidden"
+        >
+          <Image
+            src={`https://image.tmdb.org/t/p/w500${data.backdrop_path}`}
+            alt="Green double couch with wooden legs"
+            layout="fill"
+            objectFit="cover"
+          />
+        </Box>
+        <Heading
+          _groupHover={{
+            visibility: 'visible',
+            opacity: 1,
+            transform: 'translateY(0px)'
+          }}
+          fontSize="sm"
+          variant="cardTitle"
+        >{data.title}</Heading>
+      </Box>
+    </Link>
     <HStack py={2} px={3} justifyContent="space-between">
       <Text display="flex" color="gray.600" alignItems="center" fontSize="xs" gap={1}>
         <Icon as={MdCalendarToday as 'svg'}/>
@@ -31,26 +49,6 @@ const CardView: React.FC<ViewPropTypes> = ({data}) => (<Card maxW="sm">
         {data.vote_count}
       </Text>
     </HStack>
-    {/*<Stack mt="6" spacing="3">*/}
-    {/*  <Heading size="md">{data.title}</Heading>*/}
-    {/*  <Text>*/}
-    {/*    {data.overview}*/}
-    {/*  </Text>*/}
-    {/*  <Text color="blue.600" fontSize="2xl">*/}
-    {/*    $450*/}
-    {/*  </Text>*/}
-    {/*</Stack>*/}
   </CardBody>
-  {/*<Divider />*/}
-  {/*<CardFooter>*/}
-  {/*  <ButtonGroup spacing="2">*/}
-  {/*    <Button variant="solid" colorScheme="blue">*/}
-  {/*      Buy now*/}
-  {/*    </Button>*/}
-  {/*    <Button variant="ghost" colorScheme="blue">*/}
-  {/*      Add to cart*/}
-  {/*    </Button>*/}
-  {/*  </ButtonGroup>*/}
-  {/*</CardFooter>*/}
 </Card>);
 export default CardView;

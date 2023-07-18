@@ -9,7 +9,7 @@ const MovieContainer = () => {
   const [getMovie] = useLazyGetMovieQuery();
 
   useEffect(() => {
-    getMovie()
+    getMovie('444')
   }, []);
 
   return (
