@@ -8,10 +8,15 @@ export interface IQueryState {
   data?: Array<IMovie>,
   error?: string,
 }
+interface FilterState {
+  key: 'search' | 'category',
+  value: string
+}
 interface IMovieState {
   queryState: IQueryState,
   filterKey: MOVIE_TYPES;
   searchQuery: string;
+  filterState: FilterState,
 }
 
 const initialState: IMovieState = {
@@ -21,6 +26,10 @@ const initialState: IMovieState = {
   },
   filterKey: MOVIE_TYPES.NOW_PLAYING,
   searchQuery: '',
+  filterState: {
+    key: 'category',
+    value: MOVIE_TYPES.NOW_PLAYING,
+  }
 };
 
 export const movieSlice = createSlice({
@@ -33,6 +42,9 @@ export const movieSlice = createSlice({
     setSearchValue: (state: IMovieState, { payload }: PayloadAction<string>) => {
       state.searchQuery = payload;
     },
+    setFilterState: (state: IMovieState, { payload }: PayloadAction<FilterState>) => {
+      state.filterState = payload;
+    },
     setQueryState: (state: IMovieState, { payload }: PayloadAction<IQueryState>) => {
       state.queryState = payload;
     },
@@ -40,7 +52,7 @@ export const movieSlice = createSlice({
 });
 
 export default movieSlice;
-export const { setQueryState, setFilterKey, setSearchValue } = movieSlice.actions;
+export const { setFilterState, setQueryState, setFilterKey, setSearchValue } = movieSlice.actions;
 const selectMovie = state => state.movie;
 export const selectMovieFilters = createSelector(
   selectMovie,

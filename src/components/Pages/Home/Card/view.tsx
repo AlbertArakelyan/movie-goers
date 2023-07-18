@@ -22,7 +22,7 @@ const CardView: React.FC<ViewPropTypes> = ({data}) => (<Card maxW="sm">
           overflow="hidden"
         >
           <Image
-            src={`https://image.tmdb.org/t/p/w500${data.backdrop_path}`}
+            src={`https://image.tmdb.org/t/p/w500${data.poster_path}`}
             alt="Green double couch with wooden legs"
             layout="fill"
             objectFit="cover"

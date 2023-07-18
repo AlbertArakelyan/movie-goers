@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {useDebounce} from "react-use";
 import {ContainerPropTypes} from './types';
 import View from './view';
-import {selectMovieFilters, setFilterKey, setSearchValue} from "@/store/slices/movie";
+import {selectMovieFilters, setFilterKey, setFilterState, setSearchValue} from "@/store/slices/movie";
 import {useRTKDispatch, useRTKSelector} from "@/store/hooks";
 import {MOVIE_TYPES} from "@/common/enums";
 
@@ -15,6 +15,10 @@ const SearchFieldContainer: React.FC<ContainerPropTypes> = () => {
     () => {
       dispatch(setSearchValue(value));
       dispatch(setFilterKey(MOVIE_TYPES.NOW_PLAYING));
+      dispatch(setFilterState({
+        key: 'search',
+        value,
+      }));
     },
     500,
     [value]
