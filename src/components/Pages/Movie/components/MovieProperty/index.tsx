@@ -6,4 +6,4 @@ const MoviePropertyContainer: FC<IMoviePropertyContainerProps> = ({propertyKey, 
   return <View propertyKey={propertyKey} value={value} />
 };
 
-export  default MoviePropertyContainer;
+export default MoviePropertyContainer;
