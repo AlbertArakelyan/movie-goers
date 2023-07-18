@@ -4,10 +4,11 @@ import { createWrapper } from 'next-redux-wrapper';
 import reducer from '@/store/reducer';
 import {AppDispatch} from "@/store/index";
 import {movieApi} from "@/api/movieApi";
+import ListenerMiddleware from './middlware';
 
 const store = configureStore({
   reducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(movieApi.middleware),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(movieApi.middleware).prepend(ListenerMiddleware.middleware)
 });
 
 export type RootState = ReturnType<typeof store.getState>;

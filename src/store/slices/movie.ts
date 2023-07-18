@@ -24,15 +24,18 @@ export const movieSlice = createSlice({
     setSearchValue: (state: IMovieState, { payload }: PayloadAction<string>) => {
       state.searchQuery = payload;
     },
+    setQueryState: (state: IMovieState, { payload }: PayloadAction<any>) => {
+      state.queryState = payload;
+    },
   },
 });
 
 export default movieSlice;
-export const { setFilterKey, setSearchValue } = movieSlice.actions;
+export const { setQueryState, setFilterKey, setSearchValue } = movieSlice.actions;
 const selectMovie = state => state.movie;
 export const selectMovieFilters = createSelector(
   selectMovie,
-  (filterKey, searchQuery) => ({ filterKey, searchQuery })
+  ({filterKey, searchQuery}) => ({ filterKey, searchQuery })
 );
 export const selectMovieQueryState = createSelector(
   selectMovie,
