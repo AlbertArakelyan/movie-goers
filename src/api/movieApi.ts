@@ -1,11 +1,12 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import {IMovieViewProps} from '@/components/Pages/Movie/types';
 
 const baseUrl = 'https://api.themoviedb.org/3/movie/';
 const movieApiHeaders = {
   accept: 'application/json',
 };
 
-const createRequest = (url: string) => ({url, headers: movieApiHeaders});
+const createRequest = (url: string) => ({url: `${url}?api_key=f4ae22d790547b2c3a398a0e3952f3ae`, headers: movieApiHeaders});
 
 export const movieApi= createApi({
   reducerPath: 'movieApi',
@@ -27,8 +28,6 @@ export const movieApi= createApi({
 });
 
 export const {
-  useNowPlayingQuery,
-  useTopRatedQuery,
-  usePopularQuery,
-  useLazyGetMovieQuery,
+  useGetMovieQuery,
+  useLazyGetMovieQuery
 } = movieApi;

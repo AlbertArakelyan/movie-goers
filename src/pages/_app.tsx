@@ -2,15 +2,16 @@ import type {AppProps} from 'next/app';
 import {Provider} from 'react-redux';
 import theme from '@/styles/theme';
 import {ChakraProvider} from '@chakra-ui/react';
-import store, {wrapper} from '@/store';
+import {wrapper} from '@/store';
 
- function App({Component, pageProps}: AppProps) {
+function App({Component, pageProps}: AppProps) {
+  const {store, props} = wrapper.useWrappedStore(pageProps);
 
   return <Provider store={store}>
     <ChakraProvider theme={theme}>
-      <Component {...pageProps} />
+      <Component {...props} />
     </ChakraProvider>
   </Provider>
 }
 
-export default wrapper.withRedux(App);
+export default App;
