@@ -1,7 +1,7 @@
-import Head from 'next/head'
-import {Cards, Header} from '@/components';
+import Head from 'next/head';
+import {Header, Movie} from '@/components';
 
-export default function Home() {
+export default function MoviePage() {
   return (
     <>
       <Head>
@@ -10,8 +10,8 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <link rel="icon" href="/favicon.ico"/>
       </Head>
-      <Header/>
-      <Cards/>
+      <Header />
+      <Movie />
     </>
-  )
+  );
 }
