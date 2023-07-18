@@ -2,6 +2,7 @@ import { createListenerMiddleware, isAnyOf } from '@reduxjs/toolkit';
 import { movieSlice, setQueryState } from '@/store/slices/movie';
 import {movieApi} from "@/api/movieApi";
 import {MOVIE_TYPES} from "@/common/enums";
+import {IMovie} from "@/common/interfaces";
 
 const listenerMiddleware = createListenerMiddleware();
 
@@ -15,17 +16,22 @@ listenerMiddleware.startListening({
 
 async function fetchAppropriateApi(action: { type: string, payload: any }, listenerApi: any) {
   try {
-    listenerApi.dispatch(setQueryState({ isFetching: true }));
+    listenerApi.dispatch(setQueryState({ isFetching: true, data: [] }));
     const actionName: string = action.type.split('/')[1];
+    let data: Array<IMovie> = [];
     switch (actionName) {
       case 'setFilterKey':
+        let apiName: string | null = null;
         if (action.payload === MOVIE_TYPES.NOW_PLAYING) {
-          const data = await listenerApi.dispatch(movieApi.endpoints?.nowPlaying?.initiate?.()).unwrap();
-          console.log(data);
+          apiName = 'nowPlaying';
         } else if (action.payload === MOVIE_TYPES.POPULAR) {
-          listenerApi.dispatch(movieApi.endpoints?.popular?.initiate?.());
+          apiName = 'popular';
         } else if (action.payload === MOVIE_TYPES.TOP_RATED) {
-          listenerApi.dispatch(movieApi.endpoints?.topRated?.initiate?.());
+          apiName = 'topRated';
+        }
+        if(apiName) {
+          const { results } = await listenerApi.dispatch(movieApi.endpoints?.[apiName]?.initiate?.()).unwrap();
+          data = results;
         }
         break;
       case 'setSearchQuery':
@@ -34,8 +40,10 @@ async function fetchAppropriateApi(action: { type: string, payload: any }, liste
       default:
         break;
     }
+    listenerApi.dispatch(setQueryState({ isFetching: false, data }));
   } catch (err) {
-
+    console.error(err);
+    listenerApi.dispatch(setQueryState({ isFetching: false, error: 'Something went wrong!' }));
   }
 }
 export default listenerMiddleware;

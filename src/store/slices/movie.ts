@@ -1,15 +1,24 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { createSelector } from 'reselect';
 import {MOVIE_TYPES} from "@/common/enums";
+import {IMovie} from "@/common/interfaces";
 
+export interface IQueryState {
+  isFetching: boolean,
+  data?: Array<IMovie>,
+  error?: string,
+}
 interface IMovieState {
-  queryState: { [key: string]: any } | null,
+  queryState: IQueryState,
   filterKey: MOVIE_TYPES;
   searchQuery: string;
 }
 
 const initialState: IMovieState = {
-  queryState: null,
+  queryState: {
+    isFetching: false,
+    data: [],
+  },
   filterKey: MOVIE_TYPES.ALL,
   searchQuery: '',
 };
@@ -24,7 +33,7 @@ export const movieSlice = createSlice({
     setSearchValue: (state: IMovieState, { payload }: PayloadAction<string>) => {
       state.searchQuery = payload;
     },
-    setQueryState: (state: IMovieState, { payload }: PayloadAction<any>) => {
+    setQueryState: (state: IMovieState, { payload }: PayloadAction<IQueryState>) => {
       state.queryState = payload;
     },
   },

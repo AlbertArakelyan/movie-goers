@@ -88,8 +88,8 @@ const CARDS = [
   },
 ]
 const CardsContainer: React.FC<ContainerPropTypes> = () => {
-  const a = useRTKSelector(selectMovieQueryState);
-  console.log(a);
-  return <View list={CARDS} />
+  const { isFetching, data = [], error } = useRTKSelector(selectMovieQueryState);
+
+  return <View list={data} error={error} isFetching={isFetching} />
 }
 export default React.memo(CardsContainer);
