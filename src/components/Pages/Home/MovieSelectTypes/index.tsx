@@ -1,7 +1,7 @@
 import React from 'react';
 import {ContainerPropTypes} from './types';
 import View from './view';
-import {selectMovieFilters, setFilterKey, setFilterState, setSearchValue} from "@/store/slices/movie";
+import {selectMovieFilters, setFilterKey, setFilterState} from "@/store/slices/movie";
 import {useRTKDispatch, useRTKSelector} from "@/store/hooks";
 
 const MovieSelectTypesContainer: React.FC<ContainerPropTypes> = () => {
@@ -10,7 +10,6 @@ const MovieSelectTypesContainer: React.FC<ContainerPropTypes> = () => {
 
   const onChange = (e) => {
     dispatch(setFilterKey(e.target.value));
-    dispatch(setSearchValue(''));
     dispatch(setFilterState({
       key: 'category',
       value: e.target.value,

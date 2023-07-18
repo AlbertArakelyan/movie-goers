@@ -21,7 +21,7 @@ interface IMovieState {
 
 const initialState: IMovieState = {
   queryState: {
-    isFetching: false,
+    isFetching: true,
     data: [],
   },
   filterKey: MOVIE_TYPES.NOW_PLAYING,
