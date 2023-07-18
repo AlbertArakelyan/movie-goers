@@ -19,7 +19,7 @@ const initialState: IMovieState = {
     isFetching: false,
     data: [],
   },
-  filterKey: MOVIE_TYPES.ALL,
+  filterKey: MOVIE_TYPES.NOW_PLAYING,
   searchQuery: '',
 };
 

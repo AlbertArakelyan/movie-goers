@@ -1,5 +1,4 @@
 export enum MOVIE_TYPES {
-  ALL = '*',
   NOW_PLAYING= 'NOW_PLAYING',
   TOP_RATED= 'TOP_RATED',
   POPULAR= 'POPULAR',

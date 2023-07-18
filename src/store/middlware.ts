@@ -20,7 +20,7 @@ async function fetchAppropriateApi(action: { type: string, payload: any }, liste
     const actionName: string = action.type.split('/')[1];
     let data: Array<IMovie> = [];
     let apiName: string | null = null;
-    console.log(actionName);
+    let query: string | undefined;
     switch (actionName) {
       case 'setFilterKey':
         if (action.payload === MOVIE_TYPES.NOW_PLAYING) {
@@ -34,12 +34,13 @@ async function fetchAppropriateApi(action: { type: string, payload: any }, liste
         break;
       case 'setSearchValue':
         apiName = 'search';
+        query = action.payload;
         break;
       default:
         break;
     }
     if(apiName) {
-      const { results } = await listenerApi.dispatch(movieApi.endpoints?.[apiName]?.initiate?.()).unwrap();
+      const { results } = await listenerApi.dispatch(movieApi.endpoints?.[apiName]?.initiate?.(query)).unwrap();
       data = results;
     }
     listenerApi.dispatch(setQueryState({ isFetching: false, data }));

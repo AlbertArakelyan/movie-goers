@@ -6,7 +6,14 @@ const movieApiHeaders = {
   accept: 'application/json',
 };
 
-const createRequest = (url: string) => ({url: `${url}?api_key=f4ae22d790547b2c3a398a0e3952f3ae`, headers: movieApiHeaders});
+const createRequest = (url: string, params = {}) => ({
+  url,
+  headers: movieApiHeaders,
+  params: {
+    api_key: 'f4ae22d790547b2c3a398a0e3952f3ae',
+    ...params,
+  }
+});
 
 export const movieApi= createApi({
   reducerPath: 'movieApi',
@@ -22,7 +29,7 @@ export const movieApi= createApi({
       query: () => createRequest('movie/popular'),
     }),
     search: builder.query({
-      query: (query) => createRequest(`search/movie?query=${query}`),
+      query: (query) => createRequest('search/movie', { query }),
     }),
     getMovie: builder.query({
       query: (id) => createRequest(`movie/${id}`),
