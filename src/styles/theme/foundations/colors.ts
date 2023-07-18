@@ -1,7 +1,7 @@
 import {theme} from '@chakra-ui/react'
 
-const primary = theme.colors.teal;
+const gray = theme.colors.gray;
 
 export default {
-  primary
+  gray
 }

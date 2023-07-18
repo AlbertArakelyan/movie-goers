@@ -1,5 +1,6 @@
-import Head from 'next/head'
-import {Cards, Header} from '@/components';
+import Head from 'next/head';
+import {Container, VStack} from '@chakra-ui/react';
+import {Cards, Header, Filters} from '@/components';
 
 export default function Home() {
   return (
@@ -11,7 +12,12 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico"/>
       </Head>
       <Header/>
-      <Cards/>
+      <Container maxW="4xl" mt={4}>
+        <VStack spacing={4} alignItems="left">
+          <Filters />
+          <Cards/>
+        </VStack>
+      </Container>
     </>
   )
 }
